@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+using namespace std;
+ofstream fout("output.out");
+
+const int inf = 0x3f3f3f3f;
+
+void ckmin(int &a, int b) {
+    a = min(a, b);
+}
+
+int n;
+string s;
+
+void testcase() {
+    cin >> n >> s;
+    s = ' ' + s;
+    vector<int> dp(n + 1, inf);
+    vector<int> minch(26, inf);
+    dp[0] = 0;
+    for (int i = 1; i <= n; ++i) {
+        ckmin(minch[s[i] - 'a'], dp[i - 1]);
+        dp[i] = minch[s[i] - 'a'] + 1;
+    }
+    cout << dp[n] << "\n";
+}
+
+int main() {
+    int tc = 1;
+    cin >> tc;
+    for (int t = 1; t <= tc; ++t) {
+#ifdef _DEBUG
+        cerr << "=== Subtask " << t << " ===\n";
+#endif
+        testcase();
+#ifdef _DEBUG
+        cerr << "\n";
+#endif
+    }
+}
