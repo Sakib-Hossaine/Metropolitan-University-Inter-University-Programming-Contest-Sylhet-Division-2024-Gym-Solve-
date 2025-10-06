@@ -1,0 +1,57 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long double ld;
+typedef long long ll;
+#define vl vector<ll>
+#define pb push_back
+#define endl "\n"
+#define Endl "\n"
+#define F first
+#define S second
+#define ha cout << "YES\n"
+#define na cout << "NO\n"
+#define all(x) x.begin(), x.end()
+#define mod 1000000000
+
+int pow(int a, int b) {
+    int ans = 1;
+    while (b) {
+        if (b & 1) {
+            ans = (ans * a) % mod;
+        }
+        a = (a * a) % mod;
+        b >>= 1;
+    }
+    return ans;
+}
+
+void solve() {
+    ll n;
+    cin >> n;
+    while (1) {
+        if (n / 10 == 0) {
+            if (n % 10 == 6 || n % 10 == 9) {
+                cout << n << endl;
+                break;
+            } else {
+                n++;
+            }
+        } else if ((n % 10 == 9 && n / 10 == 9) || (n % 10 == 6 && n / 10 == 6) || (n % 10 == 9 && n / 10 == 6) || (n % 10 == 6 && n / 10 == 9)) {
+            cout << n << endl;
+            break;
+        } else {
+            n++;
+        }
+    }
+}
+
+int main() {
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    ll ttt;
+    cin >> ttt;
+    while (ttt--)
+        solve();
+    return 0;
+}
