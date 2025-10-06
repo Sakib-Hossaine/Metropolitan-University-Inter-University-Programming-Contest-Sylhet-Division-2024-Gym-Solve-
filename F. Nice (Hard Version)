@@ -1,0 +1,59 @@
+#include <bits/stdc++.h>
+#define int long long
+#define MOD 998244353
+using namespace std;
+int pow2[1000008], t, n, ras;
+string s;
+signed main()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    pow2[0] = 1;
+    for (int i = 1; i <= 1000006; i++)
+        pow2[i] = (pow2[i - 1] * 2LL) % MOD;
+
+    cin >> t;
+    for (int l = 1; l <= t; l++)
+    {
+        cin >> n;
+        cin >> s;
+        int sum1 = 0;
+        for (int i = 1; i <= n; i++)
+        {
+            int lg = n - i + 1;
+            int aux = (pow2[lg + 1] - 2LL * lg - 2) % MOD;
+            if (aux < 0)
+                aux += MOD;
+            sum1 = (sum1 + aux) % MOD;
+        }
+
+        vector<int> dp(n + 2, 0);
+        for (int i = n; i >= 1; i--)
+        {
+            char c = s[i - 1];
+            if (c >= '1' && c <= '5')
+                dp[i] = 0;
+            else if (c == '6')
+                dp[i] = (1 + dp[i + 1]) % MOD;
+            else if (c == '7' || c == '8')
+            {
+                int aux = n - i + 1;
+                dp[i] = (pow2[aux] - 1) % MOD;
+                if (dp[i] < 0)
+                    dp[i] += MOD;
+            }
+            else if (c == '9')
+            {
+                int aux = n - i + 1;
+                dp[i] = (pow2[aux] + dp[i + 1]) % MOD;
+            }
+        }
+        int sum2 = 0;
+        for (int i = 1; i <= n; i++)
+            sum2 = (sum2 + dp[i]) % MOD;
+
+        ras = (sum1 + sum2) % MOD;
+        cout << ras % MOD << '\n';
+    }
+    return 0;
+}
